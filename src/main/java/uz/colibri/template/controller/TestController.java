@@ -14,8 +14,6 @@ import uz.colibri.template.repository.UserRepo;
 public class TestController {
     @Autowired
     private TestRepo repo;
-    @Autowired
-    private UserRepo userRepo;
 
     @GetMapping
     public ResponseModel responseModel(){
