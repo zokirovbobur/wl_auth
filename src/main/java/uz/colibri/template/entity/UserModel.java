@@ -19,5 +19,5 @@ public class UserModel extends BaseEntity{
     @GeneratedValue
     private int userId;
     private String userName;
-    //TODO fill with fields and methods using compatible data with diagram data
+
 }
