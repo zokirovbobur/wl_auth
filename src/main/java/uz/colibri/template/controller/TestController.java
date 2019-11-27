@@ -23,7 +23,6 @@ public class TestController {
     }
     @PostMapping
     public ResponseModel postNewUser(@RequestBody TestModel testModel){
-        userRepo.save(new UserModel());
         return new ResponseModel(repo.save(testModel));
     }
 
