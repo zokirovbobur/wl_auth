@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,8 +16,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Entity
 public class UserModel extends BaseEntity{
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_generator")
     private int userId;
     private String userName;
 

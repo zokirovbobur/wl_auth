@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class TestModel {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "test_generator")
     private int testID;
     private String testname;
     private Boolean status;
