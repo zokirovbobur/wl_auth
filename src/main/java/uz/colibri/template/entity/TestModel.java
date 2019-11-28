@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TestModel {
+public class TestModel extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "test_generator")
     private int testID;
     private String testname;
