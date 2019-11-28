@@ -11,12 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class UserProfile extends BaseEntity{
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile_seq")
-    private int userProfileId;
+public class UserSession extends BaseEntity{
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usser_session_seq")
+    private long us_id;
     @ManyToOne
     private UserModel user;
-    private String fName,lName,mName,docSerial,docNumber,pnfl,sex;
-    private Date birthDate;
-
+    private String sessionId;
+    private Date timeOut;
 }

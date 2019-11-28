@@ -10,13 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class TestModel extends BaseEntity{
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "test_seq")
-    private int testID;
-    private String testname;
-    private Boolean status;
-
+public class LogData {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "log_seq")
+    private long logId;
 }
