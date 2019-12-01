@@ -17,4 +17,9 @@ public class MailCodes {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_seq")
     private long mc_id;
     private String email,mailCode;
+
+    public MailCodes(String email, String mailCode) {
+        this.email = email;
+        this.mailCode = mailCode;
+    }
 }

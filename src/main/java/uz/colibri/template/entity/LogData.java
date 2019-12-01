@@ -17,4 +17,12 @@ public class LogData {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "log_seq")
     private long logId;
+
+    private int status;
+    private String message;
+
+    public LogData(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }

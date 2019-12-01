@@ -1,8 +1,8 @@
 package uz.colibri.template.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import uz.colibri.template.entity.CoreUser;
+import uz.colibri.template.entity.MailCodes;
 
-public interface UserRepo extends JpaRepository<CoreUser,Integer> {
+public interface MailRepo extends JpaRepository<MailCodes,Long> {
     boolean existsByEmail(String email);
 }

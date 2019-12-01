@@ -21,4 +21,12 @@ public class SessionModel {
         this.sessionId = UUID.fromString(string).toString();
         return this.sessionId;
     }
+
+    public static String generate(){
+        return UUID.randomUUID().toString();
+    }
+
+    public static String fromString(String string){
+        return UUID.fromString(string).toString();
+    }
 }

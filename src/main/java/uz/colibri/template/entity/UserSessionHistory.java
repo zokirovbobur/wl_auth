@@ -15,7 +15,7 @@ public class UserSessionHistory extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usser_session_seq")
     private long us_h_id;
     @ManyToOne
-    private CoreUsers user;
+    private CoreUser user;
     private String sessionId;
     private Date timeOut;
 }
