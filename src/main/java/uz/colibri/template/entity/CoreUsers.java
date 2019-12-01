@@ -20,6 +20,4 @@ public class CoreUsers extends BaseEntity{
     private String userName,email,phone,password;
     private int activityStatus;
     private Date lastActivityStatus;
-
-
 }
