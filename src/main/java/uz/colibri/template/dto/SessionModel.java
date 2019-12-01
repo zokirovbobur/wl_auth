@@ -19,6 +19,6 @@ public class SessionModel {
     }
     public String generateFromString(String string){
         this.sessionId = UUID.fromString(string).toString();
-        return this.sessionId;
+        return this.sessionId;//test
     }
 }
