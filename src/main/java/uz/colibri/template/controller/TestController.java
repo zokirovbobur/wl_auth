@@ -41,4 +41,5 @@ public class TestController {
         return jdbcTemplate.queryForObject("select exists(select 1 from user_session_table ust where ust.session_id = ? and ust.user_model_user_id = ?)",boolean.class,"test",1);
     }
 
+
 }
