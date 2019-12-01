@@ -20,4 +20,5 @@ public class AuthController {
     public ResponseModel mailCR(@RequestBody MailModel mailModel){
         return service.mailCR(mailModel);
     }
+
 }

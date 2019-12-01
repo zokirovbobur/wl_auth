@@ -18,4 +18,9 @@ public class UserSession extends BaseEntity{
     private CoreUser user;
     private String sessionId;
     private Date timeOut;
+
+    public UserSession(CoreUser coreUser, String sessionId) {
+        this.user = coreUser;
+        this.sessionId = sessionId;
+    }
 }

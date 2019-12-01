@@ -24,21 +24,23 @@ public class AuthService {
     private UserSessionRepo sessionRepo;
 
     public ResponseModel mailCR(MailModel mailModel){
-        //TODO check mail not exists // done
-        //TODO insert mail code with this email // done
-        //TODO insert session with this user id
-        //TODO create user account with this email
-        //TODO return session id from all valid actions
+        //TODO find and handle possible errors
         String email = mailModel.getEmail();
         if(!userRepo.existsByEmail(email)){
             String sessionId = SessionModel.fromString(email);
             mailRepo.save(new MailCodes(email,sessionId));
-            int userId = userRepo.save(new CoreUser(email)).getUserId();
-            sessionRepo.save(new UserSession());
-
+            CoreUser coreUser = userRepo.save(new CoreUser(email));
+            UserSession userSession = sessionRepo.save(new UserSession(coreUser,sessionId));
+            SessionModel sessionModel = new SessionModel(sessionId);
+            ResponseModel responseModel;
+            if (userSession.getUs_id() != 0){
+                responseModel = new ResponseModel(0,"success",sessionModel);
+            }else {
+                responseModel = new ResponseModel(2,"unknown error",null);
+            }
+            return responseModel;
         }else {
             return new ResponseModel(1,"mail address is already registered",null);
         }
-        return new ResponseModel();
     }
 }
