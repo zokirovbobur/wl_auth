@@ -5,9 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import uz.colibri.template.dto.ResponseModel;
 import uz.colibri.template.entity.TestModel;
-import uz.colibri.template.entity.UserModel;
 import uz.colibri.template.repository.TestRepo;
-import uz.colibri.template.repository.UserRepo;
 
 @RestController
 @RequestMapping("test")

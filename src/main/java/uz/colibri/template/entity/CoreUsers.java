@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "core_users")
-public class UserModel extends BaseEntity{
+public class CoreUsers extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_generator")
     @Column(name = "user_id")
     private int userId;
