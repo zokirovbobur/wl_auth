@@ -17,6 +17,7 @@ public class TestController {
     public ResponseModel responseModel(){
         return new ResponseModel(0,"success",new TestModel());
     }
+
     @PostMapping
     public ResponseModel postNewUser(@RequestBody TestModel testModel){
         return new ResponseModel(repo.save(testModel));

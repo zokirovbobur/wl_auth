@@ -1,10 +1,9 @@
 package uz.colibri.template.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import uz.colibri.template.dto.MailModel;
-import uz.colibri.template.dto.ResponseModel;
-import uz.colibri.template.dto.SessionModel;
+import uz.colibri.template.dto.*;
 import uz.colibri.template.entity.CoreUser;
 import uz.colibri.template.entity.MailCodes;
 import uz.colibri.template.entity.UserSession;
@@ -22,12 +21,14 @@ public class AuthService {
     private MailRepo mailRepo;
     @Autowired
     private UserSessionRepo sessionRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ResponseModel mailCR(MailModel mailModel){
         //TODO find and handle possible errors
         String email = mailModel.getEmail();
         if(!userRepo.existsByEmail(email)){
-            String sessionId = SessionModel.fromString(email);
+            String sessionId = passwordEncoder.encode(email);
             mailRepo.save(new MailCodes(email,sessionId));
             CoreUser coreUser = userRepo.save(new CoreUser(email));
             UserSession userSession = sessionRepo.save(new UserSession(coreUser,sessionId));
@@ -42,5 +43,33 @@ public class AuthService {
         }else {
             return new ResponseModel(1,"mail address is already registered",null);
         }
+    }
+
+    public Result confirmMail(RequestModel requestModel){
+//        Result result = new Result();
+//        result.setSuccess(true);
+        return new Result(true);
+    }
+
+    public Result isUserNameFree(RequestModel requestModel){
+//        Result result = new Result();
+//        result.setSuccess(true);
+        return new Result(true);
+    }
+
+    public ResponseModel login(RequestModel requestModel){
+        String username = requestModel.getUserName();
+        String email = requestModel.getEmail();
+        String phoneNumber = requestModel.getPhoneNumber();
+        String password = requestModel.getPhoneNumber();
+        return new ResponseModel(1,"token",1);
+    }
+
+    public ResponseModel signUp(RequestModel requestModel){
+        String username = requestModel.getUserName();
+        String email = requestModel.getEmail();
+        String phoneNumber = requestModel.getPhoneNumber();
+        String sessionid = requestModel.getSessionId();
+        return new ResponseModel("sessionId","token");
     }
 }

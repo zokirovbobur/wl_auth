@@ -17,4 +17,10 @@ public class ResponseModel {
         this.status = 0;
         this.message = "success";
     }
+
+    public ResponseModel(String message,Object data){
+        this.message = message;
+        this.data = data;
+        this.status = 1;
+    }
 }

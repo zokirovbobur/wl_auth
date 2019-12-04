@@ -23,6 +23,7 @@ public class MailService {
             return e.getCause().getLocalizedMessage();
         }
     }
+
     @Async
     void simpleMail(RequestMail requestMail){
         try {
