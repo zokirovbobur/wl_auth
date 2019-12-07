@@ -14,7 +14,14 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Entity
 public class MailCodesHistory {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_h_seq")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_h_seq")
     private long mc_id;
-    private String email,mailCode;
+    private String email;
+    private int mailCode;
+
+    public MailCodesHistory(String email,int mailCode){
+        this.email = email;
+        this.mailCode = mailCode;
+    }
 }

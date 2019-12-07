@@ -3,7 +3,6 @@ package uz.colibri.template.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Bean;
 
 import java.util.UUID;
 
@@ -12,7 +11,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SessionModel {
     private String sessionId;
+    private String token;
 
+    public SessionModel(String sessionId){
+        this.sessionId = sessionId;
+        this.token = null;
+    }
     public String generateSessionId(){
         this.sessionId = UUID.randomUUID().toString();
         return this.sessionId;

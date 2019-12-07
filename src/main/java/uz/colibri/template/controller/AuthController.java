@@ -12,19 +12,18 @@ public class AuthController {
     @Autowired
     private AuthService service;
 
-    @PostMapping("mailCR")
+    @PostMapping("/mailCR")
     public ResponseModel mailCR(@RequestBody MailModel mailModel){
-        System.out.println(mailModel);
         return service.mailCR(mailModel);
     }
 
     @PostMapping("/mailCC")
-    public Result confirmMail(@RequestBody RequestModel requestModel){
+    public ResponseModel confirmMail(@RequestBody RequestModel requestModel){
         return service.confirmMail(requestModel);
     }
 
     @PostMapping("/checkUsername")
-    public Result checkUsername(@RequestBody RequestModel requestModel){
+    public ResponseModel checkUsername(@RequestBody RequestModel requestModel){
         return service.isUserNameFree(requestModel);
     }
 

@@ -14,10 +14,15 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity(name = "core_users")
 public class CoreUser extends BaseEntity{
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_generator")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_generator")
     @Column(name = "user_id")
     private int userId;
-    private String userName,email,phone,password;
+    @Column(name = "user_name")
+    private String userName;
+    private String email;
+    private String phone;
+    private String password;
     private int activityStatus;
     private Date lastActivityStatus;
 

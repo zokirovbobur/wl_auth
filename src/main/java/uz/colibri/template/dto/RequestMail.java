@@ -8,5 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestMail {
-    private String emailAddress,title,content;
+    private String emailAddress;
+    private String title;
+    private String content;
 }

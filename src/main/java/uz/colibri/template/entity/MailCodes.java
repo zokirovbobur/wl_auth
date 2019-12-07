@@ -14,11 +14,13 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Entity
 public class MailCodes {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_seq")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_seq")
     private long mc_id;
-    private String email,mailCode;
+    private String email;
+    private int mailCode;
 
-    public MailCodes(String email, String mailCode) {
+    public MailCodes(String email, int mailCode) {
         this.email = email;
         this.mailCode = mailCode;
     }
