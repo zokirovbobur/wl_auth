@@ -6,6 +6,7 @@ import uz.colibri.template.entity.UserSession;
 import java.util.Optional;
 
 public interface UserSessionRepo extends JpaRepository<UserSession,Long> {
-    boolean isSessionExist(String sessionId);
+    boolean existsBySessionId(String sessionId);
+
     UserSession findUserSessionBySessionId(String sessionId);
 }

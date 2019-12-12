@@ -13,6 +13,7 @@ public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+
     @Async
     public String sendMail(RequestMail requestMail){
         try {

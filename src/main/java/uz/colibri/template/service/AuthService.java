@@ -1,6 +1,7 @@
 package uz.colibri.template.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.colibri.template.dto.*;
@@ -12,8 +13,6 @@ import uz.colibri.template.repository.MailHistoryRepo;
 import uz.colibri.template.repository.MailRepo;
 import uz.colibri.template.repository.UserRepo;
 import uz.colibri.template.repository.UserSessionRepo;
-
-import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -29,14 +28,23 @@ public class AuthService {
     private UserSessionRepo sessionRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private MailService mailService;
 
     public ResponseModel mailCR(MailModel mailModel){
         //TODO find and handle possible errors
+        RequestMail requestMail = new RequestMail();
         String email = mailModel.getEmail();
         if(!userRepo.existsByEmail(email)){
             CoreUser coreUser = userRepo.save(new CoreUser(email));
             String sessionId = passwordEncoder.encode(email);
             int mailCode = (int) ((1000000*Math.random())+1);
+            System.out.println(mailCode);
+            System.out.println(sessionId);
+            requestMail.setEmailAddress(email);
+            requestMail.setTitle("Confirmation code");
+            requestMail.setContent(String.valueOf(mailCode));
+            mailService.simpleMail(requestMail);
             mailRepo.save(new MailCodes(email,mailCode));
             UserSession userSession = sessionRepo.save(new UserSession(coreUser,sessionId));
             SessionModel sessionModel = new SessionModel(sessionId);
@@ -57,7 +65,7 @@ public class AuthService {
         String sessionId = requestModel.getSessionId();
         int mailCode = requestModel.getMailCode();
         String email = mailRepo.findByMailCode(mailCode).getEmail();
-        if (sessionRepo.isSessionExist(sessionId)){
+        if (sessionRepo.existsBySessionId(sessionId)){
             if (mailRepo.existsByMailCode(mailCode)){
                 // delete mail code from mail_codes table
                 mailRepo.deleteByMailCode(mailCode);
@@ -79,7 +87,7 @@ public class AuthService {
     public ResponseModel isUserNameFree(RequestModel requestModel){
         Result result = new Result();
         String userName = requestModel.getUserName();
-        if (!userRepo.isUserNameExist(userName)){
+        if (!userRepo.existsByUserName(userName)){
             result.setSuccess(true);
             return new ResponseModel(result);
         }else {
@@ -96,7 +104,7 @@ public class AuthService {
         Result result = new Result();
         SessionModel sessionModel = new SessionModel();
         if (username != null){
-            if (userRepo.isUserNameExist(username)){
+            if (userRepo.existsByUserName(username)){
                 sessionModel.setSessionId("session");
                 sessionModel.setToken("token");
                 return new ResponseModel(sessionModel);
@@ -105,7 +113,7 @@ public class AuthService {
                 return new ResponseModel("UserName not found",result);
             }
         }else if (password != null){
-            if (userRepo.isPasswordExist(password)){
+            if (userRepo.existsByPassword(password)){
                 sessionModel.setSessionId("session");
                 sessionModel.setToken("token");
                 return new ResponseModel(sessionModel);
@@ -114,7 +122,7 @@ public class AuthService {
                 return new ResponseModel("Password not found",result);
             }
         }else if (email != null){
-            if (userRepo.isEmailExist(email)){
+            if (userRepo.existsByEmail(email)){
                 sessionModel.setSessionId("session");
                 sessionModel.setToken("token");
                 return new ResponseModel(sessionModel);
@@ -130,9 +138,13 @@ public class AuthService {
         String username = requestModel.getUserName();
         String password = requestModel.getPassword();
         String sessionId = requestModel.getSessionId();
-        int userId = sessionRepo.findUserSessionBySessionId(sessionId).getUser().getUserId();
+        CoreUser coreUser = new CoreUser();
         // update user info
-        userRepo.updateUserInfo(username,password,userId);
+        int userId = sessionRepo.findUserSessionBySessionId(sessionId).getUser().getUserId();
+        coreUser.setUserId(userId);
+        coreUser.setUserName(username);
+        coreUser.setPassword(password);
+        userRepo.save(coreUser);
         SessionModel sessionModel = new SessionModel(sessionId,"token");
         return new ResponseModel(sessionModel);
     }
